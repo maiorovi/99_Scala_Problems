@@ -21,5 +21,8 @@ def pack[T](xs:List[T]):List[List[T]] = {
   compose(xs)
 }
 
+def encode[T](xs:List[T]):List[(Int,T)] = pack(xs).map( xs => (xs.size, xs.head))
 
-pack(List('a, 'a, 'a, 'a, 'b, 'c, 'c, 'a, 'a, 'd, 'e, 'e, 'e, 'e))
+
+encode(List('a, 'a, 'a, 'a, 'b, 'c, 'c, 'a, 'a, 'd, 'e, 'e, 'e, 'e))
+//res0: List[(Int, Symbol)] = List((4,'a), (1,'b), (2,'c), (2,'a), (1,'d), (4,'e))

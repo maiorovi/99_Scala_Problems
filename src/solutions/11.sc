@@ -21,5 +21,10 @@ def pack[T](xs:List[T]):List[List[T]] = {
   compose(xs)
 }
 
+def encode[T](xs:List[T]):List[(Int,T)] = pack(xs).map( xs => (xs.size, xs.head))
 
-pack(List('a, 'a, 'a, 'a, 'b, 'c, 'c, 'a, 'a, 'd, 'e, 'e, 'e, 'e))
+def encodeModified[T](xs:List[T]) = encode(xs).map( tuple => if (tuple._1 != 1)
+  tuple else tuple._2 )
+
+encodeModified(List('a, 'a, 'a, 'a, 'b, 'c, 'c, 'a, 'a, 'd, 'e, 'e, 'e, 'e))
+//res0: List[Any] = List((4,'a), 'b, (2,'c), (2,'a), 'd, (4,'e))
