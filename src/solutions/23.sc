@@ -1,12 +1,16 @@
 import scala.util.Random
 
-def randomSelect[T](amount:Int, xs:List[T]):List[T] = (amount, xs) match {
-  case (amt, Nil) => throw new IllegalArgumentException
-  case (0, xs) => Nil
-  case (amt, xs) => {
-    val (lst, elem) = removeAt(new Random().nextInt(xs.length-1) ,xs)
-    elem::randomSelect(amt - 1, lst)
+def randomSelect[T](amount:Int, xs:List[T]):List[T] = {
+  def _randomSelect[T](amount: Int, xs: List[T]): List[T] = (amount, xs) match {
+    case (amt, Nil) => throw new IllegalArgumentException
+    case (0, x :: xs) => x :: Nil
+    case (amt, xs) => {
+      val (lst, elem) = removeAt(new Random().nextInt(xs.length), xs)
+      elem :: _randomSelect(amt - 1, lst)
+    }
   }
+
+  _randomSelect(amount - 1, xs)
 }
 
 def removeAt[T](n:Int, xs:List[T]):(List[T], T) = {
